@@ -1,7 +1,12 @@
 package dk.magenta.eark.erms;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -15,20 +20,42 @@ import javax.ws.rs.core.MediaType;
 /**
  * Root resource (exposed at "myresource" path)
  */
-@Path("myresource")
-public class MyResource {
+@Path("extraction")
+public class ExtractionResource {
 
 	private List<String> acceptedExtractionFormats;
 	
-	public MyResource() {
+	public ExtractionResource() {
 		acceptedExtractionFormats = new ArrayList<String>();
 		acceptedExtractionFormats.add(Constants.EXTRACTION_FORMAT_EARKSIP);
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("load-extraction-format")
+	public JsonObject loadExtractionFormat() {
+		
+		try {
+			InputStream in = new FileInputStream(Constants.SETTINGS);
+			Properties properties = new Properties();
+			properties.load(in);
+			in.close();
+			System.out.println(properties.getProperty("a"));
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("save-extraction-format")
 	public JsonObject saveExtractionFormat(@QueryParam("format") String format) {
+		
 		
 		JsonObjectBuilder builder = Json.createObjectBuilder();
 		if (acceptedExtractionFormats.contains(format)) {
