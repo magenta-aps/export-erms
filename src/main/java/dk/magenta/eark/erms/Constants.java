@@ -10,5 +10,5 @@ public class Constants {
 	public static final String ERRORMSG = "error";
 	
 	// File paths
-	public static final String PATH_SETTINGS = "/home/andreas/eark/export-erms/configuration";
+	public static final String SETTINGS = "target/classes/settings.conf";
 }
