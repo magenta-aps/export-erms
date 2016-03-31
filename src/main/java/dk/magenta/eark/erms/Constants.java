@@ -11,4 +11,6 @@ public class Constants {
 	
 	// File paths
 	public static final String SETTINGS = "target/classes/settings.conf";
+	public static final String CMIS_SETTINGS_PATH = "cmis.properties";
+	
 }
